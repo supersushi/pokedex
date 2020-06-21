@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vente Pokemon{% endblock %}
+
+{% block body %}
+    <h1>Vente de </h1>
+
+    {{ form_start(form) }}
+    <label>Price:</label>
+    <input type="number" name="price" min="0" required>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('pokedex_perso') }}">back to mes pokemons</a>
+
+{% endblock %}

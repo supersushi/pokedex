@@ -2,11 +2,59 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %} Pokedex MIAGE!{% endblock %}</title>
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+        <style>
+            .app-bold{
+                font-weight: bold;
+            }
+        </style>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="{{ path('homepage') }}">Le Pokedex {% if app.user %}de {{ app.user.username }} {% endif %} </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="{{ path('homepage') }}">Home</a></li>
+        <li class="nav-item"><a  class="nav-link" href="{{ path('pokemon_type_index') }}">Liste des pokemons</a></li>
+        <li class="nav-item"><a  class="nav-link" href="{{ path('pokemon_type_new') }}">Ajouter un type de pokemon</a></li>
+        {% if not app.user %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('security_login') }}" >Connexion</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('security_registration') }}">Inscription</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('pokedex_perso') }}">Mes Pokemons</a>
+        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('commerce') }}">Commerce de Pokemons</a>
+            </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('security_logout') }}">Déconnexion</a>
+        </li>
+            <li class="nav-item">
+         <a class="nav-link" href="{{ path('capture') }}">Capture</a>
+            </li>
+        {% endif %}
+    </ul>
+    </div>
+    </nav>
+    <div class="card" style="width: 80%;margin: auto">
+        <div class="card-body">
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+        </div>
+    </div>
+    <hr>
+    <footer>
+        <p>Attrapez-les tous !</p>
+    </footer>
     </body>
 </html>

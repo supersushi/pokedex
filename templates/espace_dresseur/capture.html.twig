@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Capture{% endblock %}
+
+{% block body %}
+    <h1>Capturons des Pokemons ! </h1>
+
+    {% for message in app.flashes('capture') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('chassefaite') %}
+        <div class="alert alert-info">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {{ form_start(form) }}
+    <div class="form-group">
+        <label>Lieu : </label>
+        <select name="localisation" class="form-control">
+            <option value="">Choisir un lieu</option>
+            {% for emplacement in lieu %}
+                <option value="{{ emplacement['label'] }}">{{ emplacement['label'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Votre compagnon : </label>
+        <select name="pokemon_allie" class="form-control">
+            <option value="">Choisir un compagnon</option>
+            {% for compagnon in pokedex_perso %}
+                <option value="{{ compagnon['id'] }}">{{ compagnon['nom'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">A la chasse !</button>
+    {{ form_end(form) }}
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PokemonType index{% endblock %}
+
+{% block body %}
+    <h1>Mes Pokemons</h1>
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('envente') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('pasenvente') %}
+        <div class="alert alert-info">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Type Courbe Niveau</th>
+            <th>Xp</th>
+            <th>Niveau</th>
+            <th>Prix</th>
+            <th>Date Dernier Entrainement</th>
+            <th>Date Derniere Chasse</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for poke in pokedex_perso %}
+            <tr>
+                <td>{{ poke['nom'] }}</td>
+                <td>{{ poke['type_courbe_niveau'] }}</td>
+                <td>{{ poke['xp'] }}</td>
+                <td>{{ poke['niveau'] }}</td>
+                <td>{{ poke['prix'] }}</td>
+                <td>{{ poke['date_dernier_entrainement'] }}</td>
+                <td>{{ poke['date_derniere_chasse'] }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary"><a href="{{ path('pokemon_type_show', {'id': poke['ref']}) }}">show</a></button>
+                    <button type="button" class="btn btn-secondary"><a href="{{ path('pokemon_type_vendre', {'id' : poke['id']}) }}">sell</a></button>
+                    <button type="button" class="btn btn-primary"><a href="{{ path('pokemon_type_annuler', {'id' : poke['id']}) }}">annuler la vente</a></button>
+                    <button type="button" class="btn btn-primary"><a href="{{ path('pokemon_type_entrainer', {'id' : poke['id'], 'courbe' : poke['type_courbe_niveau']}) }}">entrainer</a></button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
